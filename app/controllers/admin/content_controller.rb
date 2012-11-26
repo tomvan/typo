@@ -31,6 +31,9 @@ class Admin::ContentController < Admin::BaseController
       return
     end
     @article = Article.find(params[:id]).merge_with(params[:merge_with])
+     @images = Resource.images_by_created_at.page(params[:page]).per(10)
+    @resources = Resource.without_images_by_filename
+    @macros = TextFilter.macro_filters   
     render 'new'
   end
 

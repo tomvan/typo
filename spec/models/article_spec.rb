@@ -26,6 +26,14 @@ describe Article do
     assert_equal [:body, :extended], a.content_fields
   end
 
+
+#Homework
+  describe "merge_with" do
+    end
+    it "should combine the text of both articles" do
+    end
+  end
+
   describe "#permalink_url" do
     describe "with hostname" do
       subject { Article.new(:permalink => 'article-3', :published_at => Time.new(2004, 6, 1)).permalink_url(anchor=nil, only_path=false) }

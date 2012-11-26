@@ -481,6 +481,17 @@ describe Admin::ContentController do
     it_should_behave_like 'destroy action'
     it_should_behave_like 'autosave action'
 
+    describe 'merge action' do
+    #Homework
+      it 'should call the merge method on the article instance' do
+        @article2 = Factory(:article, :body => "Some text", :title => "article2")
+        Article.should_receive(:find).with(@article.id).and_return(@article)
+        @article.should_receive(:merge_with).with(@article2.id).and_return(@article)
+        post :merge, :id => @article.id, :merge_with => @article2.id
+        response.should render_template('new')
+      end
+
+    end
     describe 'edit action' do
 
       it 'should edit article' do
@@ -617,14 +628,15 @@ describe Admin::ContentController do
       @article = Factory(:article, :user => @user)
       request.session = {:user => @user.id}
     end
-
-#HOMEWORK Scenario 1
-    it "should not allow non-admins to merge articles" do
-      @article2 = Factory(:article, :body => "Some text", :title => "article2")
-      Article.should_not_receive(:merge_with)
-      get :merge, :id => @article.id, :merge_with => @article2.id
+    
+    describe 'merge action' do
+      #HOMEWORK Scenario 1
+      it "should not allow non-admins to merge articles" do
+        @article2 = Factory(:article, :body => "Some text", :title => "article2")
+        @article.should_not_receive(:merge_with)
+        get :merge, :id => @article.id, :merge_with => @article2.id
+      end
     end
-
     it_should_behave_like 'index action'
     it_should_behave_like 'new action'
     it_should_behave_like 'destroy action'

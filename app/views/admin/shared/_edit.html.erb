@@ -4,7 +4,7 @@
 
 <% end %>
 
-<% unless form_action[:id].nil? || form_type != "article" %>
+<% unless form_action[:id].nil? || form_type != "article" || not(current_user.admin?)%>
 	<%= form_tag :action => "merge", :id => params[:id] do %>
 		<%= render :partial => "merge" %>
 	<% end %>

@@ -77,7 +77,7 @@ class Article < Content
     self.body = self.body + article_to_merge_with.body
     self.comments << article_to_merge_with.comments
     self.save
-    article_to_merge_with.destroy
+     article_to_merge_with.delete
     return self
   end
   def set_permalink

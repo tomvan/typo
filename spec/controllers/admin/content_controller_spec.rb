@@ -618,6 +618,13 @@ describe Admin::ContentController do
       request.session = {:user => @user.id}
     end
 
+#HOMEWORK Scenario 1
+    it "should not allow non-admins to merge articles" do
+      @article2 = Factory(:article, :body => "Some text", :title => "article2")
+      Article.should_not_receive(:merge_with)
+      get :merge, :id => @article.id, :merge_with => @article2.id
+    end
+
     it_should_behave_like 'index action'
     it_should_behave_like 'new action'
     it_should_behave_like 'destroy action'

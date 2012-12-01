@@ -22,6 +22,9 @@ module NavigationHelpers
       article = Article.find_by_title $1
       "/admin/content/edit/#{article.id}"
 
+    when /^the new categories page/
+      "/admin/categories/new"
+
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
     #
